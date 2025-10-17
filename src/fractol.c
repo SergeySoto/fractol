@@ -44,17 +44,26 @@ int	main(int argc, char **argv)
 	// printf("Limits: [%.2f, %.2f] x [%.2f, %.2f]\n", 
 	// 	fractol.re_min, fractol.re_max, fractol.im_min, fractol.im_max);
 
-	// mlx_t	*mlx;
-
-	// mlx = mlx_init(800, 600, "Fractol", true);
-	// if (!mlx)
-	// {
-	// 	ft_putstr_fd("❌ Failed to initialize MLX42\n", 2);
-	// 	return (1);
-	// }
-	// ft_putstr_fd("✅ Window created successfully!\n", 1);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
+	fractol.mlx = mlx_init(800, 600, "Fractol", true);
+	if (!fractol.mlx)
+	{
+		ft_putstr_fd("❌ Failed to initialize MLX42\n", 2);
+		return (1);
+	}
+	fractol.img = mlx_new_image(fractol.mlx, fractol.width, fractol.height);
+	if (!fractol.img)
+	{
+		mlx_terminate(fractol.mlx);
+		return (ft_putstr_fd("❌ Failed to create image\n", 2), 0);
+	}
+	if (mlx_image_to_window(fractol.mlx, fractol.img, 0, 0) < 0)
+	{
+		mlx_terminate(fractol.mlx);
+		return (ft_putstr_fd("❌ Failed to display image\n", 2), 0);
+	}
+	ft_putstr_fd("✅ Window created successfully!\n", 1);
+	mlx_loop(fractol.mlx);
+	mlx_terminate(fractol.mlx);
 
 	return (0);
 }
