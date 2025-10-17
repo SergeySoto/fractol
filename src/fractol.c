@@ -1,0 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/08 18:20:48 by ssoto-su          #+#    #+#             */
+/*   Updated: 2025/10/08 18:20:48 by ssoto-su         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../fractol.h"
+
+int	init_fractol(int argc, char **argv, t_fractol *fractol)
+{
+	fractol->mlx = NULL;
+	fractol->img = NULL;
+	fractol->width = WIDTH;
+	fractol->height = HEIGHT;
+	fractol->zoom = 1.0;
+	fractol->offset_x = 0.0;
+	fractol->offset_y = 0.0;
+	fractol->re_min = X_MIN;
+	fractol->re_max = X_MAX;
+	fractol->im_min = Y_MIN;
+	fractol->im_max = Y_MAX;
+	fractol->color_draw = WHITE;
+	fractol->max_iter = MAX_ITER;
+	fractol->escape_value = ESCAPE_RADIUS;
+	fractol->julia_c.re = JULIA_C_REAL;
+	fractol->julia_c.im = JULIA_C_IMAG;
+	return (set_type(argc, argv, fractol));
+}
+
+int	main(int argc, char **argv)
+{
+	t_fractol	fractol;
+
+	init_fractol(argc, argv, &fractol);
+	// mlx_t	*mlx;
+
+	// mlx = mlx_init(800, 600, "Fractol", true);
+	// if (!mlx)
+	// {
+	// 	ft_putstr_fd("❌ Failed to initialize MLX42\n", 2);
+	// 	return (1);
+	// }
+	// ft_putstr_fd("✅ Window created successfully!\n", 1);
+	// mlx_loop(mlx);
+	// mlx_terminate(mlx);
+
+	return (0);
+}
