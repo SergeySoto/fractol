@@ -36,8 +36,14 @@ int	init_fractol(int argc, char **argv, t_fractol *fractol)
 int	main(int argc, char **argv)
 {
 	t_fractol	fractol;
-
+	
 	init_fractol(argc, argv, &fractol);
+	// printf("Type: %d\n", fractol.type);
+	// printf("Julia C: %.5f + %.5fi\n", fractol.julia_c.re, fractol.julia_c.im);
+	// printf("Zoom: %.2f\n", fractol.zoom);
+	// printf("Limits: [%.2f, %.2f] x [%.2f, %.2f]\n", 
+	// 	fractol.re_min, fractol.re_max, fractol.im_min, fractol.im_max);
+
 	// mlx_t	*mlx;
 
 	// mlx = mlx_init(800, 600, "Fractol", true);

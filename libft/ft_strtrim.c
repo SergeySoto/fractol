@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssoto-su <ssoto-su@student.42malaga.com>   +#+  +:+       +#+        */
+/*   By: ssoto-su <ssoto-su@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 20:42:41 by ssoto-su          #+#    #+#             */
-/*   Updated: 2025/05/14 11:18:21 by ssoto-su         ###   ########.fr       */
+/*   Updated: 2025/10/17 21:12:57 by ssoto-su         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (NULL);
 	while (start < end)
 	{
-		str[i] += s1[start];
+		str[i] = s1[start];
 		start++;
 		i++;
 	}
-	str[end] = '\0';
+	str[i] = '\0';
 	return (str);
 }

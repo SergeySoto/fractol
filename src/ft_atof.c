@@ -12,9 +12,37 @@
 
 #include "../fractol.h"
 
-static double	ft_atof_II(char *str, double res)
+int	is_number_valid(char *str)
 {
 	int	i;
+	int	has_digit;
+	int	has_dot;
+
+	has_digit = 0;
+	has_dot = 0;
+	i = 0;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+			has_digit = 1;
+		else if (str[i] == '.')
+		{
+			if (has_dot)
+				return (0);
+			has_dot = 1;
+		}
+		else
+			return (0);
+		i++;
+	}
+	return (has_digit);
+}
+
+static double	ft_atof_II(char *str, double res)
+{
+	int		i;
 	double	deci;
 	int		flag;
 
@@ -31,12 +59,12 @@ static double	ft_atof_II(char *str, double res)
 		if (ft_isdigit(str[i]) == 1)
 			res = res + ((str[i] - '0') * deci);
 		else
-			return (ft_putstr_fd("Error: Invalid number format\n", 2), 0.0);
+			return (1);
 		deci /= 10;
 		i++;
 	}
 	if (flag == 1 && str[i] == '.')
-		return (ft_putstr_fd("Error: Invalid number format\n", 2), 0.0);
+		return (1);
 	return (res);
 }
 
@@ -62,7 +90,7 @@ double	ft_atof(char *str)
 		if (ft_isdigit(str[i]) == 1)
 			res = res * 10 + (str[i] - '0');
 		else
-			return (ft_putstr_fd("Error: Invalid number format\n", 2), 0.0);
+			return (1);
 		i++;
 	}
 	res = ft_atof_II(&str[i], res);

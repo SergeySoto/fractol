@@ -75,10 +75,12 @@ int		init_fractol(int argc, char **argv, t_fractol *fractol);
 //Fractol utils
 int		print_usage(int n);
 char	*ft_strlower(char *str);
+//ft_atof
+int		is_number_valid(char *str);
+double	ft_atof(char *str);
 //Parse type
 int		set_type(int argc, char **argv, t_fractol *fractol);
 int		validate_mandejul(char *fractol_type, t_fractol *fractol);
 int		validate_julia(char **argv, char *fractol_type, t_fractol *fractol);
-double	ft_atof(char *str);
 
 #endif
