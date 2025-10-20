@@ -20,8 +20,8 @@
 # include "./libft/libft.h"
 # include "./MLX42/include/MLX42/MLX42.h"
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 800
+# define HEIGHT 600
 # define MAX_ITER 100
 # define ESCAPE_RADIUS 4.0
 # define X_MIN -2.0
@@ -72,14 +72,15 @@ typedef struct s_fractol
 }					t_fractol;
 
 int		init_fractol(int argc, char **argv, t_fractol *fractol);
+int		init_window(t_fractol *fractol);
 //Fractol utils
-int		print_usage(int n);
+void	print_usage(int n);
 char	*ft_strlower(char *str);
 //ft_atof
 int		is_number_valid(char *str);
 double	ft_atof(char *str);
 //Parse type
-int		set_type(int argc, char **argv, t_fractol *fractol);
+void	set_type(int argc, char **argv, t_fractol *fractol);
 int		validate_mandejul(char *fractol_type, t_fractol *fractol);
 int		validate_julia(char **argv, char *fractol_type, t_fractol *fractol);
 

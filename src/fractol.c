@@ -30,7 +30,45 @@ int	init_fractol(int argc, char **argv, t_fractol *fractol)
 	fractol->escape_value = ESCAPE_RADIUS;
 	fractol->julia_c.re = JULIA_C_REAL;
 	fractol->julia_c.im = JULIA_C_IMAG;
-	return (set_type(argc, argv, fractol));
+	return (set_type(argc, argv, fractol), 0);
+}
+
+int	init_window(t_fractol *fractol)
+{
+	fractol->mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
+	if (!fractol->mlx)
+		return (ft_putstr_fd("❌ Failed to initialize MLX42\n", 2), 1);
+	fractol->img = mlx_new_image(fractol->mlx, fractol->width, fractol->height);
+	if (!fractol->img)
+	{
+		mlx_terminate(fractol->mlx);
+		return (ft_putstr_fd("❌ Failed to create image\n", 2), 1);
+	}
+	if (mlx_image_to_window(fractol->mlx, fractol->img, 0, 0) < 0)
+	{
+		mlx_terminate(fractol->mlx);
+		return (ft_putstr_fd("❌ Failed to display image\n", 2), 1);
+	}
+	ft_putstr_fd("✅ Window created successfully!\n", 1);
+	return (0);
+}
+
+static void	paint_image(t_fractol *fractol)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < fractol->width)
+	{
+		y = 0;
+		while (y < fractol->height)
+		{
+			mlx_put_pixel(fractol->img, x, y, fractol->color_draw);
+			y++;
+		}
+		x++;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -38,32 +76,16 @@ int	main(int argc, char **argv)
 	t_fractol	fractol;
 	
 	init_fractol(argc, argv, &fractol);
+	if (init_window(&fractol) != 0)
+		return (1);
+	paint_image(&fractol);
+	mlx_loop(fractol.mlx);
+	mlx_terminate(fractol.mlx);
 	// printf("Type: %d\n", fractol.type);
 	// printf("Julia C: %.5f + %.5fi\n", fractol.julia_c.re, fractol.julia_c.im);
 	// printf("Zoom: %.2f\n", fractol.zoom);
 	// printf("Limits: [%.2f, %.2f] x [%.2f, %.2f]\n", 
 	// 	fractol.re_min, fractol.re_max, fractol.im_min, fractol.im_max);
-
-	fractol.mlx = mlx_init(800, 600, "Fractol", true);
-	if (!fractol.mlx)
-	{
-		ft_putstr_fd("❌ Failed to initialize MLX42\n", 2);
-		return (1);
-	}
-	fractol.img = mlx_new_image(fractol.mlx, fractol.width, fractol.height);
-	if (!fractol.img)
-	{
-		mlx_terminate(fractol.mlx);
-		return (ft_putstr_fd("❌ Failed to create image\n", 2), 0);
-	}
-	if (mlx_image_to_window(fractol.mlx, fractol.img, 0, 0) < 0)
-	{
-		mlx_terminate(fractol.mlx);
-		return (ft_putstr_fd("❌ Failed to display image\n", 2), 0);
-	}
-	ft_putstr_fd("✅ Window created successfully!\n", 1);
-	mlx_loop(fractol.mlx);
-	mlx_terminate(fractol.mlx);
 
 	return (0);
 }

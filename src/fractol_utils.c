@@ -12,27 +12,29 @@
 
 #include "../fractol.h"
 
-int	print_usage(int n)
+void	print_usage(int n)
 {
 	if (n == 1)
 	{
 		ft_putstr_fd("Usage:\n", 2);
 		ft_putstr_fd("  ./fractol mandelbrot\n", 2);
 		ft_putstr_fd("  ./fractol julia <real> <img>\n", 2);
+		exit(1);
 	}
 	if (n == 2)
 	{
 		ft_putstr_fd("Usage:\n", 2);
 		ft_putstr_fd("  ./fractol mandelbrot\n", 2);
 		ft_putstr_fd("  ./fractol julia\n", 2);
+		exit(1);
 	}
 	if (n == 3)
 	{
 		ft_putstr_fd("Usage:\n", 2);
 		ft_putstr_fd("  ./fractol mandelbrot\n", 2);
 		ft_putstr_fd("  ./fractol julia <real> <img>\n", 2);
+		exit(1);
 	}
-	return (1);
 }
 
 char	*ft_strlower(char *str)

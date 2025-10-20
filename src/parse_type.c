@@ -28,27 +28,23 @@ static void	set_julia(char *trimmed_re, char *trimmed_im, t_fractol *fractol)
 	fractol->im_max = 2.0;
 }
 
-int	set_type(int argc, char **argv, t_fractol *fractol)
+void	set_type(int argc, char **argv, t_fractol *fractol)
 {
 	char	*fractol_type;
 
 	if (argc < 2 || argc > 4)
-		return (print_usage(1));
+		print_usage(1);
 	fractol_type = ft_strlower(argv[1]);
 	if (argc == 2)
-		return (validate_mandejul(fractol_type, fractol));
-	if (argc == 3)
+		validate_mandejul(fractol_type, fractol);
+	else if (argc == 3)
 	{
 		free(fractol_type);
-		return (print_usage(3));
+		print_usage(3);
 	}
-	if (argc == 4)
-		return (validate_julia(argv, fractol_type, fractol));
-	else
-	{
-		free(fractol_type);
-		return (print_usage(3));
-	}
+	else if (argc == 4)
+		if (validate_julia(argv, fractol_type, fractol) != 0)
+			exit(1);
 }
 
 int	validate_mandejul(char *fractol_type, t_fractol *fractol)
@@ -70,7 +66,7 @@ int	validate_mandejul(char *fractol_type, t_fractol *fractol)
 	else
 	{
 		free(fractol_type);
-		return (print_usage(2));
+		return (print_usage(2), 1);
 	}
 }
 
@@ -82,14 +78,14 @@ int	validate_julia(char **argv, char *fractol_type, t_fractol *fractol)
 	if (ft_strcmp(fractol_type, "julia") != 0)
 	{
 		free(fractol_type);
-		return (print_usage(3));
+		print_usage(3);
 	}
 	trimmed_re = ft_strtrim(argv[2], " ");
 	trimmed_im = ft_strtrim(argv[3], " ");
 	if (!trimmed_re || !trimmed_im)
 	{
 		free_trimmed(trimmed_re, trimmed_im, fractol_type);
-		return (1);
+		return (ft_putstr_fd("Error: Memory allocation failed\n", 2), 1);
 	}
 	if (!is_number_valid(trimmed_re) || !is_number_valid(trimmed_im))
 	{
