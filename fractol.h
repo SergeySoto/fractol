@@ -56,6 +56,7 @@ typedef struct s_fractol
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_fractal_type	type;
+	t_calc			complex;
 	t_calc			julia_c;
 	int				width;
 	int				height;
@@ -72,11 +73,17 @@ typedef struct s_fractol
 }					t_fractol;
 
 int		init_fractol(int argc, char **argv, t_fractol *fractol);
+//Window
 int		init_window(t_fractol *fractol);
+void	render_fractol(t_fractol *fractol);
+void	map_pixel_to_complex(int x, int y, t_fractol *fractol);
+//Algorithm
+int		mandelbrot(t_fractol *fractol);
+int		julia(t_fractol *fractol);
 //Fractol utils
 void	print_usage(int n);
 char	*ft_strlower(char *str);
-//ft_atof
+//Ft_atof
 int		is_number_valid(char *str);
 double	ft_atof(char *str);
 //Parse type

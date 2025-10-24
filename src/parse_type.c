@@ -12,7 +12,7 @@
 
 #include "../fractol.h"
 
-static void	free_trimmed(char* str1, char* str2, char* str3)
+static void	free_trimmed(char *str1, char *str2, char *str3)
 {
 	free(str1);
 	free(str2);

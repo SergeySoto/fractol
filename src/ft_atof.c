@@ -40,7 +40,7 @@ int	is_number_valid(char *str)
 	return (has_digit);
 }
 
-static double	ft_atof_II(char *str, double res)
+static double	ft_atof_ii(char *str, double res)
 {
 	int		i;
 	double	deci;
@@ -93,6 +93,6 @@ double	ft_atof(char *str)
 			return (1);
 		i++;
 	}
-	res = ft_atof_II(&str[i], res);
+	res = ft_atof_ii(&str[i], res);
 	return (res * symbol);
 }

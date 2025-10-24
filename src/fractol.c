@@ -28,64 +28,48 @@ int	init_fractol(int argc, char **argv, t_fractol *fractol)
 	fractol->color_draw = WHITE;
 	fractol->max_iter = MAX_ITER;
 	fractol->escape_value = ESCAPE_RADIUS;
+	fractol->complex.re = 0.0;
+	fractol->complex.im = 0.0;
 	fractol->julia_c.re = JULIA_C_REAL;
 	fractol->julia_c.im = JULIA_C_IMAG;
 	return (set_type(argc, argv, fractol), 0);
 }
 
-int	init_window(t_fractol *fractol)
+static uint32_t	get_color(int iter, t_fractol *fractol)
 {
-	fractol->mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
-	if (!fractol->mlx)
-		return (ft_putstr_fd("❌ Failed to initialize MLX42\n", 2), 1);
-	fractol->img = mlx_new_image(fractol->mlx, fractol->width, fractol->height);
-	if (!fractol->img)
-	{
-		mlx_terminate(fractol->mlx);
-		return (ft_putstr_fd("❌ Failed to create image\n", 2), 1);
-	}
-	if (mlx_image_to_window(fractol->mlx, fractol->img, 0, 0) < 0)
-	{
-		mlx_terminate(fractol->mlx);
-		return (ft_putstr_fd("❌ Failed to display image\n", 2), 1);
-	}
-	ft_putstr_fd("✅ Window created successfully!\n", 1);
-	return (0);
-}
+	double	ratio;
+	int	R;
+	int	G;
+	int	B;
+	int	A;
 
-static void	paint_image(t_fractol *fractol)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < fractol->width)
-	{
-		y = 0;
-		while (y < fractol->height)
-		{
-			mlx_put_pixel(fractol->img, x, y, fractol->color_draw);
-			y++;
-		}
-		x++;
-	}
+	A = 255;
+	ratio = 0.0;
+	if (iter == fractol->max_iter)
+		fractol->color_draw = BLACK;
+	else
+		ratio = (double)iter / fractol->max_iter;
+	R = 255 + ratio * (0 - 255);
+	G = 255 + ratio * (0 - 255);
+	B = 255 + ratio * (0 - 255);
+	fractol->color_draw = (R << 24) | (G << 16) | (B << 8) | A;
+	return (fractol->color_draw);
 }
 
 int	main(int argc, char **argv)
 {
 	t_fractol	fractol;
-	
+
 	init_fractol(argc, argv, &fractol);
 	if (init_window(&fractol) != 0)
 		return (1);
-	paint_image(&fractol);
+	render_fractol(&fractol);
 	mlx_loop(fractol.mlx);
 	mlx_terminate(fractol.mlx);
 	// printf("Type: %d\n", fractol.type);
-	// printf("Julia C: %.5f + %.5fi\n", fractol.julia_c.re, fractol.julia_c.im);
+	// printf("Julia C: %.5f + %.5fi\n", fractol.complex.re, fractol.complex.im);
 	// printf("Zoom: %.2f\n", fractol.zoom);
 	// printf("Limits: [%.2f, %.2f] x [%.2f, %.2f]\n", 
 	// 	fractol.re_min, fractol.re_max, fractol.im_min, fractol.im_max);
-
 	return (0);
 }

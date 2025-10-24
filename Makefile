@@ -18,7 +18,7 @@ MLX = $(MLX_BUILD)libmlx42.a
 LDFLAGS = -L$(LIBFT_DIR) -lft -L$(MLX_BUILD) -lmlx42 -ldl -lglfw -pthread -lm
 
 # Source files
-SRC = src/fractol.c src/fractol_utils.c src/parse_type.c src/ft_atof.c
+SRC = src/fractol.c src/fractol_utils.c src/parse_type.c src/ft_atof.c src/window.c src/algorithm.c
 
 # Object files (with obj/ prefix)
 OBJ = $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(SRC))
