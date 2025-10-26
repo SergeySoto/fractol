@@ -14,7 +14,7 @@
 
 int	init_window(t_fractol *fractol)
 {
-	fractol->mlx = mlx_init(WIDTH, HEIGHT, "Fractol", true);
+	fractol->mlx = mlx_init(fractol->width, fractol->height, "Fractol", true);
 	if (!fractol->mlx)
 		return (ft_putstr_fd("❌ Failed to initialize MLX42\n", 2), 1);
 	fractol->img = mlx_new_image(fractol->mlx, fractol->width, fractol->height);
@@ -40,6 +40,28 @@ void	map_pixel_to_complex(int x, int y, t_fractol *fractol)
 		+ ((double)y / fractol->height) * (fractol->im_max - fractol->im_min);
 }
 
+static uint32_t	get_color(int iter, t_fractol *fractol)
+{
+	double	ratio;
+	int		r;
+	int		g;
+	int		b;
+
+	ratio = 0.0;
+	if (iter == fractol->max_iter)
+		return (BLACK);
+	ratio = sqrt((double)iter / fractol->max_iter);
+	// ratio = (double)iter / fractol->max_iter;
+	// r = (uint8_t)(sin(ratio * M_PI * 2.0) * 50);
+	// g = (uint8_t)(sin(ratio * M_PI * 2.0 + M_PI * 0.5) * 127.5 + 127.5);
+	// b = (uint8_t)(sin(ratio * M_PI * 2.0) * 100 + 155);
+	r = (uint8_t)(sin(ratio * M_PI * 2.0) * 127.5 + 127.5);
+	g = (uint8_t)(sin(ratio * M_PI * 2.0 + 2.0) * 127.5 + 127.5);
+	b = (uint8_t)(sin(ratio * M_PI * 2.0 + 4.0) * 127.5 + 127.5);
+	fractol->color_draw = (r << 24) | (g << 16) | (b << 8) | 0xFF;
+	return (fractol->color_draw);
+}
+
 void	render_fractol(t_fractol *fractol)
 {
 	int	x;
@@ -57,11 +79,9 @@ void	render_fractol(t_fractol *fractol)
 				iter = mandelbrot(fractol);
 			else if (fractol->type == JULIA)
 				iter = julia(fractol);
-			if (iter == fractol->max_iter)
-				fractol->color_draw = BLACK;
 			else
-				fractol->color_draw = WHITE;
-			mlx_put_pixel(fractol->img, x, y, fractol->color_draw);
+				iter = 0;
+			mlx_put_pixel(fractol->img, x, y, get_color(iter, fractol));
 			y++;
 		}
 		x++;

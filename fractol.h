@@ -20,24 +20,26 @@
 # include "./libft/libft.h"
 # include "./MLX42/include/MLX42/MLX42.h"
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1090
+# define HEIGHT 840
 # define MAX_ITER 100
 # define ESCAPE_RADIUS 4.0
 # define X_MIN -2.0
 # define X_MAX 2.0
 # define Y_MIN -1.5
 # define Y_MAX 1.5
-# define ZOOM_FACTOR 1.1
 # define MOVE_FACTOR 0.1
+# define COLOR_SHIFT 15
+# define JULIA_C_REAL -0.7
+# define JULIA_C_IMAG 0.27015
 # define BLACK 0x000000FF
 # define WHITE 0xFFFFFFFF
 # define RED 0xFF0000FF
 # define GREEN 0x00FF00FF
 # define BLUE 0x0000FFFF
-# define COLOR_SHIFT 15
-# define JULIA_C_REAL -0.7
-# define JULIA_C_IMAG 0.27015
+# define NAVY_BLUE 0x000080FF  // RGB(0, 0, 128)
+# define DARK_SLATE_BLUE 0x483D8BFF  // RGB(72, 61, 139)
+# define TOMATO 0xFF6347FF  // RGB(255, 99, 71)
 
 typedef struct s_calc
 {
@@ -68,8 +70,6 @@ typedef struct s_fractol
 	uint32_t		color_draw;
 	int				max_iter;
 	double			escape_value;
-	double			offset_x;
-	double			offset_y;
 }					t_fractol;
 
 int		init_fractol(int argc, char **argv, t_fractol *fractol);
@@ -90,5 +90,9 @@ double	ft_atof(char *str);
 void	set_type(int argc, char **argv, t_fractol *fractol);
 int		validate_mandejul(char *fractol_type, t_fractol *fractol);
 int		validate_julia(char **argv, char *fractol_type, t_fractol *fractol);
+//Hooks
+void	handler_escape(mlx_key_data_t keydata, void *param);
+void	handler_scroll(double xdelta, double ydelta, void *param);
+
 
 #endif

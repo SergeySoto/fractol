@@ -35,27 +35,6 @@ int	init_fractol(int argc, char **argv, t_fractol *fractol)
 	return (set_type(argc, argv, fractol), 0);
 }
 
-static uint32_t	get_color(int iter, t_fractol *fractol)
-{
-	double	ratio;
-	int	R;
-	int	G;
-	int	B;
-	int	A;
-
-	A = 255;
-	ratio = 0.0;
-	if (iter == fractol->max_iter)
-		fractol->color_draw = BLACK;
-	else
-		ratio = (double)iter / fractol->max_iter;
-	R = 255 + ratio * (0 - 255);
-	G = 255 + ratio * (0 - 255);
-	B = 255 + ratio * (0 - 255);
-	fractol->color_draw = (R << 24) | (G << 16) | (B << 8) | A;
-	return (fractol->color_draw);
-}
-
 int	main(int argc, char **argv)
 {
 	t_fractol	fractol;
@@ -64,6 +43,8 @@ int	main(int argc, char **argv)
 	if (init_window(&fractol) != 0)
 		return (1);
 	render_fractol(&fractol);
+	mlx_key_hook(fractol.mlx, handler_escape, &fractol);
+	mlx_scroll_hook(fractol.mlx, handler_scroll, &fractol);
 	mlx_loop(fractol.mlx);
 	mlx_terminate(fractol.mlx);
 	// printf("Type: %d\n", fractol.type);
