@@ -19,8 +19,6 @@ int	init_fractol(int argc, char **argv, t_fractol *fractol)
 	fractol->width = WIDTH;
 	fractol->height = HEIGHT;
 	fractol->zoom = 1.0;
-	fractol->offset_x = 0.0;
-	fractol->offset_y = 0.0;
 	fractol->re_min = X_MIN;
 	fractol->re_max = X_MAX;
 	fractol->im_min = Y_MIN;
@@ -44,6 +42,7 @@ int	main(int argc, char **argv)
 		return (1);
 	render_fractol(&fractol);
 	mlx_key_hook(fractol.mlx, handler_escape, &fractol);
+	mlx_key_hook(fractol.mlx, handler_arrows, &fractol);
 	mlx_scroll_hook(fractol.mlx, handler_scroll, &fractol);
 	mlx_loop(fractol.mlx);
 	mlx_terminate(fractol.mlx);

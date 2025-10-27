@@ -37,9 +37,9 @@
 # define RED 0xFF0000FF
 # define GREEN 0x00FF00FF
 # define BLUE 0x0000FFFF
-# define NAVY_BLUE 0x000080FF  // RGB(0, 0, 128)
-# define DARK_SLATE_BLUE 0x483D8BFF  // RGB(72, 61, 139)
-# define TOMATO 0xFF6347FF  // RGB(255, 99, 71)
+# define NAVY_BLUE 0x000080FF
+# define DARK_SLATE_BLUE 0x483D8BFF
+# define TOMATO 0xFF6347FF
 
 typedef struct s_calc
 {
@@ -67,6 +67,8 @@ typedef struct s_fractol
 	double			re_max;
 	double			im_min;
 	double			im_max;
+	double			mouse_ratio_x;
+	double			mouse_ratio_y;
 	uint32_t		color_draw;
 	int				max_iter;
 	double			escape_value;
@@ -90,9 +92,14 @@ double	ft_atof(char *str);
 void	set_type(int argc, char **argv, t_fractol *fractol);
 int		validate_mandejul(char *fractol_type, t_fractol *fractol);
 int		validate_julia(char **argv, char *fractol_type, t_fractol *fractol);
-//Hooks
+//Actions
 void	handler_escape(mlx_key_data_t keydata, void *param);
 void	handler_scroll(double xdelta, double ydelta, void *param);
+void	handler_arrows(mlx_key_data_t keydata, void *param);
+void	move_view(t_fractol *fractol, double dx, double dy);
+void	algorithm_zoom(t_fractol *fractol, int32_t mouse_x,
+		int32_t mouse_y, double zoom_factor);
+
 
 
 #endif
