@@ -51,3 +51,16 @@ char	*ft_strlower(char *str)
 	}
 	return (res);
 }
+
+void	move_view(t_fractol *fractol, double dx, double dy)
+{
+	double	re_range;
+	double	im_range;
+
+	re_range = fractol->re_max - fractol->re_min;
+	im_range = fractol->im_max - fractol->im_min;
+	fractol->re_min += dx * re_range;
+	fractol->re_max += dx * re_range;
+	fractol->im_min += dy * im_range;
+	fractol->im_max += dy * im_range;
+}

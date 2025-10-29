@@ -21,19 +21,6 @@ void	handler_escape(mlx_key_data_t keydata, void *param)
 		mlx_close_window(fractol->mlx);
 }
 
-void	move_view(t_fractol *fractol, double dx, double dy)
-{
-	double	re_range;
-	double	im_range;
-
-	re_range = fractol->re_max - fractol->re_min;
-	im_range = fractol->im_max - fractol->im_min;
-	fractol->re_min += dx * re_range;
-	fractol->re_max += dx * re_range;
-	fractol->im_min += dy * im_range;
-	fractol->im_max += dy * im_range;
-}
-
 void	handler_arrows(mlx_key_data_t keydata, void *param)
 {
 	t_fractol	*fractol;
@@ -91,4 +78,13 @@ void	handler_scroll(double xdelta, double ydelta, void *param)
 	mlx_get_mouse_pos(fractol->mlx, &mouse_x, &mouse_y);
 	algorithm_zoom(fractol, mouse_x, mouse_y, zoom_factor);
 	render_fractol(fractol);
+}
+
+void	handler_key(mlx_key_data_t keydata, void *param)
+{
+	t_fractol	*fractol;
+
+	fractol = (t_fractol *)param;
+	handler_escape(keydata, fractol);
+	handler_arrows(keydata, fractol);
 }

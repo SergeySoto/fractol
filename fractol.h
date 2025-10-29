@@ -20,14 +20,14 @@
 # include "./libft/libft.h"
 # include "./MLX42/include/MLX42/MLX42.h"
 
-# define WIDTH 1090
-# define HEIGHT 840
+# define WIDTH 800
+# define HEIGHT 800
 # define MAX_ITER 100
 # define ESCAPE_RADIUS 4.0
 # define X_MIN -2.0
 # define X_MAX 2.0
-# define Y_MIN -1.5
-# define Y_MAX 1.5
+# define Y_MIN -2.0
+# define Y_MAX 2.0
 # define MOVE_FACTOR 0.1
 # define COLOR_SHIFT 15
 # define JULIA_C_REAL -0.7
@@ -67,6 +67,7 @@ typedef struct s_fractol
 	double			re_max;
 	double			im_min;
 	double			im_max;
+	double			color_shift;
 	double			mouse_ratio_x;
 	double			mouse_ratio_y;
 	uint32_t		color_draw;
@@ -93,13 +94,12 @@ void	set_type(int argc, char **argv, t_fractol *fractol);
 int		validate_mandejul(char *fractol_type, t_fractol *fractol);
 int		validate_julia(char **argv, char *fractol_type, t_fractol *fractol);
 //Actions
+void	handler_key(mlx_key_data_t keydata, void *param);
 void	handler_escape(mlx_key_data_t keydata, void *param);
 void	handler_scroll(double xdelta, double ydelta, void *param);
 void	handler_arrows(mlx_key_data_t keydata, void *param);
 void	move_view(t_fractol *fractol, double dx, double dy);
 void	algorithm_zoom(t_fractol *fractol, int32_t mouse_x,
 		int32_t mouse_y, double zoom_factor);
-
-
 
 #endif

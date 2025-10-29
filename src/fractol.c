@@ -28,6 +28,7 @@ int	init_fractol(int argc, char **argv, t_fractol *fractol)
 	fractol->escape_value = ESCAPE_RADIUS;
 	fractol->complex.re = 0.0;
 	fractol->complex.im = 0.0;
+	fractol->color_shift = 0.0;
 	fractol->julia_c.re = JULIA_C_REAL;
 	fractol->julia_c.im = JULIA_C_IMAG;
 	return (set_type(argc, argv, fractol), 0);
@@ -41,15 +42,9 @@ int	main(int argc, char **argv)
 	if (init_window(&fractol) != 0)
 		return (1);
 	render_fractol(&fractol);
-	mlx_key_hook(fractol.mlx, handler_escape, &fractol);
-	mlx_key_hook(fractol.mlx, handler_arrows, &fractol);
+	mlx_key_hook(fractol.mlx, handler_key, &fractol);
 	mlx_scroll_hook(fractol.mlx, handler_scroll, &fractol);
 	mlx_loop(fractol.mlx);
 	mlx_terminate(fractol.mlx);
-	// printf("Type: %d\n", fractol.type);
-	// printf("Julia C: %.5f + %.5fi\n", fractol.complex.re, fractol.complex.im);
-	// printf("Zoom: %.2f\n", fractol.zoom);
-	// printf("Limits: [%.2f, %.2f] x [%.2f, %.2f]\n", 
-	// 	fractol.re_min, fractol.re_max, fractol.im_min, fractol.im_max);
 	return (0);
 }

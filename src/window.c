@@ -51,13 +51,9 @@ static uint32_t	get_color(int iter, t_fractol *fractol)
 	if (iter == fractol->max_iter)
 		return (BLACK);
 	ratio = sqrt((double)iter / fractol->max_iter);
-	// ratio = (double)iter / fractol->max_iter;
-	// r = (uint8_t)(sin(ratio * M_PI * 2.0) * 50);
-	// g = (uint8_t)(sin(ratio * M_PI * 2.0 + M_PI * 0.5) * 127.5 + 127.5);
-	// b = (uint8_t)(sin(ratio * M_PI * 2.0) * 100 + 155);
-	r = (uint8_t)(sin(ratio * M_PI * 2.0) * 127.5 + 127.5);
-	g = (uint8_t)(sin(ratio * M_PI * 2.0 + 2.0) * 127.5 + 127.5);
-	b = (uint8_t)(sin(ratio * M_PI * 2.0 + 4.0) * 127.5 + 127.5);
+	r = (uint8_t)(sin((ratio + fractol->color_shift) * M_PI * 2.0) * 127.5 + 127.5);
+	g = (uint8_t)(sin((ratio + fractol->color_shift) * M_PI * 2.0 + 2.0) * 127.5 + 127.5);
+	b = (uint8_t)(sin((ratio + fractol->color_shift) * M_PI * 2.0 + 4.0) * 127.5 + 127.5);
 	fractol->color_draw = (r << 24) | (g << 16) | (b << 8) | 0xFF;
 	return (fractol->color_draw);
 }

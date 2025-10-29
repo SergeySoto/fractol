@@ -24,8 +24,6 @@ static void	set_julia(char *trimmed_re, char *trimmed_im, t_fractol *fractol)
 	fractol->type = JULIA;
 	fractol->julia_c.re = ft_atof(trimmed_re);
 	fractol->julia_c.im = ft_atof(trimmed_im);
-	fractol->im_min = -2.0;
-	fractol->im_max = 2.0;
 }
 
 void	set_type(int argc, char **argv, t_fractol *fractol)
@@ -58,8 +56,6 @@ int	validate_mandejul(char *fractol_type, t_fractol *fractol)
 	else if (ft_strcmp(fractol_type, "julia") == 0)
 	{
 		fractol->type = JULIA;
-		fractol->im_min = -2.0;
-		fractol->im_max = 2.0;
 		free(fractol_type);
 		return (0);
 	}
