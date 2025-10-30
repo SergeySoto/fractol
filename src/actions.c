@@ -70,6 +70,7 @@ void	handler_scroll(double xdelta, double ydelta, void *param)
 	double		zoom_factor;
 
 	(void)xdelta;
+	zoom_factor = 0.0;
 	fractol = (t_fractol *)param;
 	if (ydelta > 0)
 		zoom_factor = 0.9;
