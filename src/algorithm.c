@@ -62,3 +62,27 @@ int	julia(t_fractol *fractol)
 	}
 	return (iter);
 }
+
+int	burning_ship(t_fractol *fractol)
+{
+	t_calc	z;
+	t_calc	z_temp;
+	int		iter;
+	double	z_squared;
+
+	z.im = 0.0;
+	z.re = 0.0;
+	iter = 0;
+	while (iter < fractol->max_iter)
+	{
+		z_squared = (z.re * z.re) + (z.im * z.im);
+		if (z_squared > fractol->escape_value)
+			return (iter);
+		z_temp.re = (z.re * z.re) - (z.im * z.im) + fractol->complex.re;
+		z_temp.im = 2.0 * fabs(z.re * z.im) + fractol->complex.im;
+		z.re = fabs(z_temp.re);
+		z.im = fabs(z_temp.im);
+		iter++;
+	}
+	return (iter);
+}

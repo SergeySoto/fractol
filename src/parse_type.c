@@ -34,7 +34,7 @@ void	set_type(int argc, char **argv, t_fractol *fractol)
 		print_usage(1);
 	fractol_type = ft_strlower(argv[1]);
 	if (argc == 2)
-		validate_mandejul(fractol_type, fractol);
+		validate_fractol(fractol_type, fractol);
 	else if (argc == 3)
 	{
 		free(fractol_type);
@@ -45,7 +45,7 @@ void	set_type(int argc, char **argv, t_fractol *fractol)
 			exit(1);
 }
 
-int	validate_mandejul(char *fractol_type, t_fractol *fractol)
+int	validate_fractol(char *fractol_type, t_fractol *fractol)
 {
 	if (ft_strcmp(fractol_type, "mandelbrot") == 0)
 	{
@@ -56,6 +56,12 @@ int	validate_mandejul(char *fractol_type, t_fractol *fractol)
 	else if (ft_strcmp(fractol_type, "julia") == 0)
 	{
 		fractol->type = JULIA;
+		free(fractol_type);
+		return (0);
+	}
+	else if (ft_strcmp(fractol_type, "burningship") == 0)
+	{
+		fractol->type = BURNING_SHIP;
 		free(fractol_type);
 		return (0);
 	}

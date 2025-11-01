@@ -19,6 +19,7 @@ void	print_usage(int n)
 		ft_putstr_fd("Usage:\n", 2);
 		ft_putstr_fd("  ./fractol mandelbrot\n", 2);
 		ft_putstr_fd("  ./fractol julia <real> <img>\n", 2);
+		ft_putstr_fd("  ./fractol burningship\n", 2);
 		exit(1);
 	}
 	if (n == 2)
@@ -26,6 +27,7 @@ void	print_usage(int n)
 		ft_putstr_fd("Usage:\n", 2);
 		ft_putstr_fd("  ./fractol mandelbrot\n", 2);
 		ft_putstr_fd("  ./fractol julia\n", 2);
+		ft_putstr_fd("  ./fractol burningship\n", 2);
 		exit(1);
 	}
 	if (n == 3)
@@ -33,6 +35,7 @@ void	print_usage(int n)
 		ft_putstr_fd("Usage:\n", 2);
 		ft_putstr_fd("  ./fractol mandelbrot\n", 2);
 		ft_putstr_fd("  ./fractol julia <real> <img>\n", 2);
+		ft_putstr_fd("  ./fractol burningship\n", 2);
 		exit(1);
 	}
 }

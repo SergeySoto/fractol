@@ -20,6 +20,10 @@
 # include "./libft/libft.h"
 # include "./MLX42/include/MLX42/MLX42.h"
 
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
+
 # define WIDTH 800
 # define HEIGHT 800
 # define MAX_ITER 100
@@ -51,6 +55,7 @@ typedef enum e_fractal_type
 {
 	MANDELBROT,
 	JULIA,
+	BURNING_SHIP,
 }	t_fractal_type;
 
 typedef struct s_fractol
@@ -83,6 +88,7 @@ void	map_pixel_to_complex(int x, int y, t_fractol *fractol);
 //Algorithm
 int		mandelbrot(t_fractol *fractol);
 int		julia(t_fractol *fractol);
+int		burning_ship(t_fractol *fractol);
 //Fractol utils
 void	print_usage(int n);
 char	*ft_strlower(char *str);
@@ -91,7 +97,7 @@ int		is_number_valid(char *str);
 double	ft_atof(char *str);
 //Parse type
 void	set_type(int argc, char **argv, t_fractol *fractol);
-int		validate_mandejul(char *fractol_type, t_fractol *fractol);
+int		validate_fractol(char *fractol_type, t_fractol *fractol);
 int		validate_julia(char **argv, char *fractol_type, t_fractol *fractol);
 //Actions
 void	handler_key(mlx_key_data_t keydata, void *param);
@@ -100,6 +106,6 @@ void	handler_scroll(double xdelta, double ydelta, void *param);
 void	handler_arrows(mlx_key_data_t keydata, void *param);
 void	move_view(t_fractol *fractol, double dx, double dy);
 void	algorithm_zoom(t_fractol *fractol, int32_t mouse_x,
-		int32_t mouse_y, double zoom_factor);
+			int32_t mouse_y, double zoom_factor);
 
 #endif

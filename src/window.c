@@ -51,9 +51,12 @@ static uint32_t	get_color(int iter, t_fractol *fractol)
 	if (iter == fractol->max_iter)
 		return (BLACK);
 	ratio = sqrt((double)iter / fractol->max_iter);
-	r = (uint8_t)(sin((ratio + fractol->color_shift) * M_PI * 2.0) * 127.5 + 127.5);
-	g = (uint8_t)(sin((ratio + fractol->color_shift) * M_PI * 2.0 + 2.0) * 127.5 + 127.5);
-	b = (uint8_t)(sin((ratio + fractol->color_shift) * M_PI * 2.0 + 4.0) * 127.5 + 127.5);
+	r = (uint8_t)(sin((ratio + fractol->color_shift)
+				* M_PI * 2.0) * 127.5 + 127.5);
+	g = (uint8_t)(sin((ratio + fractol->color_shift)
+				* M_PI * 2.0 + 2.0) * 127.5 + 127.5);
+	b = (uint8_t)(sin((ratio + fractol->color_shift)
+				* M_PI * 2.0 + 4.0) * 127.5 + 127.5);
 	fractol->color_draw = (r << 24) | (g << 16) | (b << 8) | 0xFF;
 	return (fractol->color_draw);
 }
@@ -75,6 +78,8 @@ void	render_fractol(t_fractol *fractol)
 				iter = mandelbrot(fractol);
 			else if (fractol->type == JULIA)
 				iter = julia(fractol);
+			else if (fractol->type == BURNING_SHIP)
+				iter = burning_ship(fractol);
 			else
 				iter = 0;
 			mlx_put_pixel(fractol->img, x, y, get_color(iter, fractol));

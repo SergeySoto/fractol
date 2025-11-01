@@ -88,4 +88,18 @@ void	handler_key(mlx_key_data_t keydata, void *param)
 	fractol = (t_fractol *)param;
 	handler_escape(keydata, fractol);
 	handler_arrows(keydata, fractol);
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+	{
+		fractol->color_shift += 0.1;
+		if (fractol->color_shift > 1.0)
+			fractol->color_shift = 0.0;
+		render_fractol(fractol);
+	}
+	if (keydata.key == MLX_KEY_V && keydata.action == MLX_PRESS)
+	{
+		fractol->color_shift -= 0.1;
+		if (fractol->color_shift < -1.0)
+			fractol->color_shift = 0.0;
+		render_fractol(fractol);
+	}
 }
